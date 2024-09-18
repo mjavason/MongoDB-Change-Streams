@@ -4,7 +4,7 @@ import mongooseAutoPopulate from 'mongoose-autopopulate';
 
 dotenv.config();
 
-const DB_NAME = process.env.MONGO_DB_NAME || 'mongodb-transactions-demo';
+const DB_NAME = process.env.MONGO_DB_NAME || 'mongodb-change-streams-demo';
 const DB_CONNECTION_STRING =
   process.env.MONGO_DB_URL + DB_NAME || 'mongodb://localhost:27017/' + DB_NAME;
 

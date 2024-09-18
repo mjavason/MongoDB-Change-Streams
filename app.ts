@@ -60,7 +60,6 @@ app.post('/user', async (req: Request, res: Response) => {
   try {
     const { name, bio, email } = req.body;
     const profile = await ProfileModel.create([{ bio }], { session });
-    console.log(profile);
 
     const isDuplicate = await UserModel.findOne({ email });
     if (isDuplicate) {
