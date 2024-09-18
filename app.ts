@@ -5,7 +5,7 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import { setupSwagger } from './swagger.config';
-import { connectToDatabase, ProfileModel, UserModel } from './database.config';
+import { connectToDatabase, ProfileModel, UserModel, watchUserTableChanges } from './database.config';
 import { startSession } from 'mongoose';
 
 //#region App Setup
@@ -318,6 +318,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 
 app.listen(PORT, async () => {
   connectToDatabase();
+  watchUserTableChanges()
   console.log(`Server running on port ${PORT}`);
 });
 

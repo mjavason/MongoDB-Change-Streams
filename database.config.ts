@@ -87,3 +87,40 @@ export const UserModel = mongoose.model(
     }
   ).plugin(mongooseAutoPopulate)
 );
+
+export async function watchUserTableChanges() {
+  console.log('Watching user model updates');
+  const changeStream = UserModel.watch();
+
+  // Listen for specific events
+  changeStream.on('change', (change) => {
+    switch (change.operationType) {
+      case 'insert':
+        console.log('Document inserted:', change.fullDocument);
+        break;
+      case 'update':
+        console.log('Document updated:', change.updateDescription);
+        break;
+      case 'replace':
+        console.log('Document replaced:', change.fullDocument);
+        break;
+      case 'delete':
+        console.log('Document deleted:', change.documentKey);
+        break;
+      case 'invalidate':
+        console.log('Change stream invalidated');
+        break;
+      case 'drop':
+        console.log('Collection dropped');
+        break;
+      case 'dropDatabase':
+        console.log('Database dropped');
+        break;
+      case 'rename':
+        console.log('Collection renamed');
+        break;
+      default:
+        console.log('Other change:', change);
+    }
+  });
+}
