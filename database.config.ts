@@ -88,9 +88,9 @@ export const UserModel = mongoose.model(
   ).plugin(mongooseAutoPopulate)
 );
 
+const changeStream = UserModel.watch();
 export async function watchUserTableChanges() {
   console.log('Watching user model updates');
-  const changeStream = UserModel.watch();
 
   // Listen for specific events
   changeStream.on('change', (change) => {
@@ -123,4 +123,8 @@ export async function watchUserTableChanges() {
         console.log('Other change:', change);
     }
   });
+}
+
+export async function closeUserTableWatchStream() {
+  changeStream.close();
 }
